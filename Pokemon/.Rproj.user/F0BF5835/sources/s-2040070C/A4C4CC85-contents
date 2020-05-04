@@ -1,0 +1,39 @@
+#opening required packages
+library(ggplot2)
+
+#reading .csv file into the script
+bleaching_data = read.csv("C:/Users/gvign/Downloads/Documents/FIT5147/Assignment 2/assignment-02-data-formated - Copy.csv")
+bleaching_data <- bleaching_data[order(bleaching_data$latitude),]
+
+#plotting the bleaching for each site individually
+#site1
+year_loc = subset(bleaching_data, location=='site01')
+ggplot(year_loc, aes(year, value, colour= coralType)) + geom_point() + geom_line(aes(group= coralType)) + stat_smooth(method = "lm")
+
+#site2
+year_loc = subset(bleaching_data, location=='site02')
+ggplot(year_loc, aes(year, value, colour= coralType)) + geom_point() + geom_path() + geom_line(aes(group= coralType))
+
+#site3
+year_loc = subset(bleaching_data, location=='site03')
+ggplot(year_loc, aes(year, value, colour= coralType)) + geom_point() + geom_path() + geom_line(aes(group= coralType))
+
+#site4
+year_loc = subset(bleaching_data, location=='site04')
+ggplot(year_loc, aes(year, value, colour= coralType)) + geom_point() + geom_path() + geom_line(aes(group= coralType))
+
+#site5
+year_loc = subset(bleaching_data, location=='site05')
+ggplot(year_loc, aes(year, value, colour= coralType)) + geom_point() + geom_path() + geom_line(aes(group= coralType))
+
+#site6
+year_loc = subset(bleaching_data, location=='site06')
+ggplot(year_loc, aes(year, value, colour= coralType)) + geom_point() + geom_path() + geom_line(aes(group= coralType))
+
+#site7
+year_loc = subset(bleaching_data, location=='site07')
+ggplot(year_loc, aes(year, value, colour= coralType)) + geom_point() + geom_path() + geom_line(aes(group= coralType))
+
+#site8
+year_loc = subset(bleaching_data, location=='site08')
+ggplot(year_loc, aes(year, value, colour= coralType)) + geom_point() + geom_path() + geom_line(aes(group= coralType))

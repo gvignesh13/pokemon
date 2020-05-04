@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1588567731608.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "8C8610B9",
+    "lastKnownWriteTime" : 1588569319,
+    "last_content_update" : 1588569319935,
+    "path" : "C:/Users/gvign/Downloads/Documents/FIT5147/Project 1/pokemon/Pokemon/script1.R",
+    "project_path" : "script1.R",
+    "properties" : {
+        "cursorPosition" : "12,12",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
