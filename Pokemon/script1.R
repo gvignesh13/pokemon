@@ -12,25 +12,24 @@ summary(pokemon_data)
 #dataset. There are blank values present in the set which will be awarded a value of 0 as they cannot be filled with anything
 #else.
 
-#creating temporary set to store cleaned Names and then replacing the base text with the same. Deleting temeporary set to
-#remove unncessary variables at runtime.
-elim <- gsub("^.*?Mega", "Mega", pokemon_data$Name)
-pokemon_data[,2] <- elim
-elim <- gsub("[^A-za-z ]", "", pokemon_data$Name)
-pokemon_data[,2] <- elim
-remove(elim)
+#cleaning Pokemon names
+pokemon_data[,2] <- gsub("^.*?Mega", "Mega", pokemon_data$Name)
+pokemon_data[,2] <- gsub("[^A-za-z ]", "", pokemon_data$Name)
+
+#importing a second file whicg contains evolutionl list for all Pokemon.
+pokemon_species <- read.csv("C:/Users/gvign/Downloads/Documents/FIT5147/Project 1/pokemon/pokemon_species.csv")
+summary(pokemon_species)
+
+#replacing NA's with 0's. 0 indicates base form
+pokemon_species$evolves_from_species_id[is.na(pokemon_species$evolves_from_species_id)] <- 0
+
+pokemon_data$evolved_from <- pokemon_species$evolves_from_species_id
+
 
 #splitting main data of Pokemon into sets based on their evolution to better perform operations on them. Each Pokemon has
 #a base form and an evolved form or even 2 evolved forms. Certain Pokemon also have Mega Evolution forms based on X or Y
-#evolution  stone.z
-grp_form1 <- subset(pokemon_data, pokemon_data$Legendary=="FALSE")
-
-for (iter in grp_form1$HP){
-  if (grp_form1$HP[iter] < grp_form1$HP[iter+1]){
-    if (grp_form1$HP[iter] < grp_form1$HP[iter+2])
-  }
-}
-
+#evolution  stone.
+grp_form1 <- subset(pokemon_data, pokemon_data$Legendary=="FALSE" & !grepl("Mega ", pokemon_data$Name, fixed = TRUE))
 grp_legendary <- subset(pokemon_data, pokemon_data$Legendary=="TRUE")
 grp_mega_evols <- subset(pokemon_data, grepl("Mega ", pokemon_data$Name, fixed = TRUE))
 
