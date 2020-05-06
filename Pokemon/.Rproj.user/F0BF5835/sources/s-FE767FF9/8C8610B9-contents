@@ -12,9 +12,10 @@ summary(pokemon_data)
 #dataset. There are blank values present in the set which will be awarded a value of 0 as they cannot be filled with anything
 #else.
 
-#cleaning Pokemon names
+#cleaning base dataset
 pokemon_data[,2] <- gsub("^.*?Mega", "Mega", pokemon_data$Name)
 pokemon_data[,2] <- gsub("[^A-za-z ]", "", pokemon_data$Name)
+pokemon_data$Type.2 <- gsub("^$", 0, pokemon_data$Type.2)
 
 #importing a second file whicg contains evolutionl list for all Pokemon.
 pokemon_species <- read.csv("C:/Users/gvign/Downloads/Documents/FIT5147/Project 1/pokemon/pokemon_species.csv")
@@ -22,7 +23,6 @@ summary(pokemon_species)
 
 #replacing NA's with 0's. 0 indicates base form
 pokemon_species$evolves_from_species_id[is.na(pokemon_species$evolves_from_species_id)] <- 0
-
 pokemon_data$evolved_from <- pokemon_species$evolves_from_species_id
 
 
