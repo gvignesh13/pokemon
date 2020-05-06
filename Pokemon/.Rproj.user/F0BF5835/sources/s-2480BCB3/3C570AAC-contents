@@ -7,7 +7,7 @@ library(gridExtra)
 library(plyr)
 
 #opening dataset and printing summary of dataset
-pokemon_data <- read.csv("C:/Users/gvign/Downloads/Documents/FIT5147/Project 1/pokemon/pokemon_stats.csv")
+pokemon_data <- read.csv("C:/Users/gvign/Downloads/Documents/FIT5147/Project 1/pokemon/pokemon_stats.csv", stringsAsFactors = FALSE)
 summary(pokemon_data)
 
 #creating independeant datasets and cleaning them to remove incorrect values. There are blank values present in the set which
@@ -18,23 +18,12 @@ pokemon_data[,2] <- gsub("^.*?Primal", "Primal", pokemon_data$Name)
 pokemon_data[,2] <- gsub("[^A-za-z ]", "", pokemon_data$Name)
 pokemon_data$Type2[is.na(pokemon_data$Type2)] <- 0
 
-# #importing a second file whicg contains evolutionl list for all Pokemon.
-# pokemon_species <- read.csv("C:/Users/gvign/Downloads/Documents/FIT5147/Project 1/pokemon/pokemon_species.csv")
-# summary(pokemon_species)
-# 
-# #replacing NA's with 0's. 0 indicates base form
-# pokemon_species$evolves_from_species_id[is.na(pokemon_species$evolves_from_species_id)] <- 0
-# pokemon_data$evolved_from <- pokemon_species$evolves_from_species_id
-
 #starter pokemon
-starter_names <- list(c("Bulbasaur", "Charmander", "Squirtle", "Chikorita", "Cyndaquil", "Totodile", "Treecko", "Torchic", "Mudkip"
+starters <- list(c("Bulbasaur", "Charmander", "Squirtle", "Chikorita", "Cyndaquil", "Totodile", "Treecko", "Torchic", "Mudkip"
               , "Turtwig", "Chimchar", "Piplup", "Snivy", "Tepig", "Oshawott", "Chespin", "Fennekin", "Froakie", "Rowlet",
               "Litten", "Popolio"))
-starter_names <- as.data.frame(starter_names, col.names = "Name")
-test <- match_df(pokemon_data, starter_names, on = "Name")
-
-
-#pokemon_starter <-subset(pokemon_data, pokemon_data$Name==starter_names$name)
+starters <- as.data.frame(starters, col.names = "Name")
+starters <- match_df(pokemon_data, starters, on = "Name")
 
 #splitting main data of Pokemon into sets based on their evolution to better perform operations on them. Each Pokemon has
 #a base form and an evolved form or even 2 evolved forms. Certain Pokemon also have Mega Evolution forms based on X or Y
@@ -84,8 +73,8 @@ type_1_poke <- ggplot(data= gen_all_normal, aes(Type.1)) + geom_bar(aes(fill=..c
 type_2_poke <- ggplot(data= gen_all_normal, aes(Type.2)) + geom_bar(aes(fill=..count..), alpha=0.8) + theme(axis.text.x = element_text(angle = 90, hjust = 0)) + ggtitle("Distribution Based on Type-2") + coord_flip()
 grid.arrange(type_1_poke, type_2_poke, ncol=2)
 
-#basic spider plot
-radar_test <- grp_form1[1,6:11]
+#basic radar plot
+radar_test <- starter_names[1,6:11]
 colnames(radar_test) <- c("HP", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed")
 radar_test <- rbind( rep(255,6), rep(1,6), radar_test)
 radarchart(radar_test, axistype = 1,
