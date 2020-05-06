@@ -4,6 +4,7 @@ library(fmsb)
 library(tidyverse)
 library(grid)
 library(gridExtra)
+library(plyr)
 
 #opening dataset and printing summary of dataset
 pokemon_data <- read.csv("C:/Users/gvign/Downloads/Documents/FIT5147/Project 1/pokemon/pokemon_stats.csv")
@@ -15,7 +16,7 @@ summary(pokemon_data)
 pokemon_data[,2] <- gsub("^.*?Mega", "Mega", pokemon_data$Name)
 pokemon_data[,2] <- gsub("^.*?Primal", "Primal", pokemon_data$Name)
 pokemon_data[,2] <- gsub("[^A-za-z ]", "", pokemon_data$Name)
-pokemon_data$Type.2 <- gsub("^$", 0, pokemon_data$Type.2)
+pokemon_data$Type2[is.na(pokemon_data$Type2)] <- 0
 
 # #importing a second file whicg contains evolutionl list for all Pokemon.
 # pokemon_species <- read.csv("C:/Users/gvign/Downloads/Documents/FIT5147/Project 1/pokemon/pokemon_species.csv")
@@ -26,13 +27,15 @@ pokemon_data$Type.2 <- gsub("^$", 0, pokemon_data$Type.2)
 # pokemon_data$evolved_from <- pokemon_species$evolves_from_species_id
 
 #starter pokemon
-starter_names <- list("Bulbasaur", "Charmander", "Squirtle", "Chikorita", "Cyndaquil", "Totodile", "Treecko", "Torchic", "Mudkip"
-              , "Turtwig", "Chimchar", "Piplup", "Snivy", "Tepig", "Oshawott", "Chespin", "Fennekin", "Froakie", "Rowlett",
-              "Litten", "Popolio")
-for (x in starter_names)(
-  pokemon_starter <- rbind(pokemon_data, pokemon_data$Name==x)
-)
-  
+starter_names <- list(c("Bulbasaur", "Charmander", "Squirtle", "Chikorita", "Cyndaquil", "Totodile", "Treecko", "Torchic", "Mudkip"
+              , "Turtwig", "Chimchar", "Piplup", "Snivy", "Tepig", "Oshawott", "Chespin", "Fennekin", "Froakie", "Rowlet",
+              "Litten", "Popolio"))
+starter_names <- as.data.frame(starter_names, col.names = "Name")
+test <- match_df(pokemon_data, starter_names, on = "Name")
+
+
+#pokemon_starter <-subset(pokemon_data, pokemon_data$Name==starter_names$name)
+
 #splitting main data of Pokemon into sets based on their evolution to better perform operations on them. Each Pokemon has
 #a base form and an evolved form or even 2 evolved forms. Certain Pokemon also have Mega Evolution forms based on X or Y
 #evolution  stone.
