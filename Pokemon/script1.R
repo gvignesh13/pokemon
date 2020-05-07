@@ -68,19 +68,26 @@ gen7 <- subset(pokemon_data, pokemon_data$Generation=="7")
 gen7_legendary <- subset(pokemon_data, pokemon_data$Legendary=="TRUE" & !grepl("Mega ", pokemon_data$Name, fixed = TRUE) & pokemon_data$Generation=="7")
 gen7_mega <- subset(pokemon_data, pokemon_data$Generation=="7" & grepl("Mega ", pokemon_data$Name, fixed = TRUE))
 
-#plotting a distribution of Pokemon types 1 and 2. Legendary Pokemon have been excluded from the plot.
-type_1_poke <- ggplot(data= gen_all_normal, aes(Type.1)) + geom_bar(aes(fill=..count..), alpha=0.8) + theme(axis.text.x = element_text(angle = 90, hjust = 0)) + ggtitle("Distribution Based on Type-1") + coord_flip()
-type_2_poke <- ggplot(data= gen_all_normal, aes(Type.2)) + geom_bar(aes(fill=..count..), alpha=0.8) + theme(axis.text.x = element_text(angle = 90, hjust = 0)) + ggtitle("Distribution Based on Type-2") + coord_flip()
-grid.arrange(type_1_poke, type_2_poke, ncol=2)
+#plotting basic comparisons of pokemon stats
+#stat comparison of starter pokemon
+ggplot(starters, aes(x=reorder(Name,Number), y=Total, fill=Type1)) + geom_bar(stat = "identity") + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-#basic radar plot
-radar_test <- starter_names[1,6:11]
-colnames(radar_test) <- c("HP", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed")
-radar_test <- rbind( rep(255,6), rep(1,6), radar_test)
-radarchart(radar_test, axistype = 1,
-           pcol = rgb(171/255, 57/255, 237/255,0.5), pfcol = rgb(171/255, 57/255, 237/255,0.5), plwd = 4,
-           cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,
-           vlcex = 0.8)
+#distribution of pokemon by type
+type1_poke <- ggplot(data= gen_all_normal, aes(x=Type1, fill=Type1)) + geom_bar() + theme(axis.text.x = element_text(angle = 90, hjust = 0)) + ggtitle("Distribution Based on Type-1") + coord_flip()
+type2_poke <- ggplot(data= gen_all_normal, aes(x=Type2, fill=Type2)) + geom_bar() + theme(axis.text.x = element_text(angle = 90, hjust = 0)) + ggtitle("Distribution Based on Type-2") + coord_flip()
+grid.arrange(type1_poke, type2_poke, ncol=2)
+
+#
+
+
+# #basic radar plot
+# radar_test <- starters[1,6:11]
+# colnames(radar_test) <- c("HP", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed")
+# radar_test <- rbind( rep(255,6), rep(1,6), radar_test)
+# radarchart(radar_test, axistype = 1,
+#            pcol = rgb(171/255, 57/255, 237/255,0.5), pfcol = rgb(171/255, 57/255, 237/255,0.5), plwd = 4,
+#            cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,
+#            vlcex = 0.8)
 
 
 
