@@ -6,6 +6,7 @@ library(grid)
 library(gridExtra)
 library(plyr)
 library(plotrix)
+library(compare)
 
 #opening dataset and printing summary of dataset
 pokemon_data <- read.csv("C:/Users/gvign/Downloads/Documents/FIT5147/Project 1/pokemon/pokemon_stats.csv", stringsAsFactors = FALSE)
@@ -26,12 +27,24 @@ starters <- list(c("Bulbasaur", "Charmander", "Squirtle", "Chikorita", "Cyndaqui
 starters <- as.data.frame(starters, col.names = "Name")
 starters <- match_df(pokemon_data, starters, on = "Name")
 
+#pokemon evolution list. list contains 
+sample1 <- read.csv("C:/Users/gvign/Downloads/Documents/FIT5147/Project 1/pokemon/e18.csv", stringsAsFactors = FALSE)
+
 #splitting main data of Pokemon into sets based on their evolution to better perform operations on them. Each Pokemon has
 #a base form and an evolved form or even 2 evolved forms. Certain Pokemon also have Mega Evolution forms based on X or Y
 #evolution  stone.
 gen_all_normal <- subset(pokemon_data, pokemon_data$Legendary=="FALSE" & !grepl("Mega ", pokemon_data$Name, fixed = TRUE))
 gen_all_legend <- subset(pokemon_data, pokemon_data$Legendary=="TRUE" & !grepl("Mega ", pokemon_data$Name, fixed = TRUE))
 gen_all_mega <- subset(pokemon_data, grepl("Mega ", pokemon_data$Name, fixed = TRUE))
+
+#pokemon name comparison
+for (i in sample1$Pokemon){
+  for (j in pokemon_data$Name){
+    if (i==j){
+      
+    }
+  }
+}
 
 #splitting based on generations 1 thorugh 7
 gen1 <- subset(pokemon_data, pokemon_data$Generation=="1")
