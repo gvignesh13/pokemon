@@ -19,6 +19,7 @@ pokemon_data[,2] <- gsub("^.*?Mega", "Mega", pokemon_data$Name)
 pokemon_data[,2] <- gsub("^.*?Primal", "Primal", pokemon_data$Name)
 pokemon_data[,2] <- gsub("[^A-za-z ]", "", pokemon_data$Name)
 pokemon_data$Type2[is.na(pokemon_data$Type2)] <- "None"
+write.csv(pokemon_data, "C:/Users/gvign/Downloads/Documents/FIT5147/Project 1/pokemon/pokemon_stats.csv")
 
 #starter pokemon
 starters <- list(c("Bulbasaur", "Charmander", "Squirtle", "Chikorita", "Cyndaquil", "Totodile", "Treecko", "Torchic", "Mudkip"
@@ -41,7 +42,7 @@ gen_all_mega <- subset(pokemon_data, grepl("Mega ", pokemon_data$Name, fixed = T
 for (i in sample1$Pokemon){
   for (j in pokemon_data$Name){
     if (i==j){
-      
+     NULL
     }
   }
 }
