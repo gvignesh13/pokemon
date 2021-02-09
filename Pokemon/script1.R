@@ -9,17 +9,17 @@ library(plotrix)
 library(compare)
 
 #opening dataset and printing summary of dataset
-pokemon_data <- read.csv("C:/Users/gvign/Downloads/Documents/FIT5147/Project 1/pokemon/pokemon_stats.csv", stringsAsFactors = FALSE)
+pokemon_data <- read.csv("C:/Users/gvign/Desktop/pokemon-indexer/pokemon/pokemon_stats.csv", stringsAsFactors = FALSE)
 summary(pokemon_data)
 
-#creating independeant datasets and cleaning them to remove incorrect values. There are blank values present in the set which
+#creating independent datasets and cleaning them to remove incorrect values. There are blank values present in the set which
 #will be awarded a value of 0 as they cannot be filled with anything else.
 #cleaning base dataset
 pokemon_data[,2] <- gsub("^.*?Mega", "Mega", pokemon_data$Name)
 pokemon_data[,2] <- gsub("^.*?Primal", "Primal", pokemon_data$Name)
 pokemon_data[,2] <- gsub("[^A-za-z ]", "", pokemon_data$Name)
 pokemon_data$Type2[is.na(pokemon_data$Type2)] <- "None"
-write.csv(pokemon_data, "C:/Users/gvign/Downloads/Documents/FIT5147/Project 1/pokemon/pokemon_stats.csv")
+write.csv(pokemon_data, "C:/Users/gvign/Desktop/pokemon-indexer/pokemon/pokemon_stats.csv")
 
 #starter pokemon
 starters <- list(c("Bulbasaur", "Charmander", "Squirtle", "Chikorita", "Cyndaquil", "Totodile", "Treecko", "Torchic", "Mudkip"
@@ -29,7 +29,7 @@ starters <- as.data.frame(starters, col.names = "Name")
 starters <- match_df(pokemon_data, starters, on = "Name")
 
 #pokemon evolution list. list contains 
-sample1 <- read.csv("C:/Users/gvign/Downloads/Documents/FIT5147/Project 1/pokemon/e18.csv", stringsAsFactors = FALSE)
+sample1 <- read.csv("C:/Users/gvign/Desktop/pokemon-indexer/pokemon/e18.csv", stringsAsFactors = FALSE)
 
 #splitting main data of Pokemon into sets based on their evolution to better perform operations on them. Each Pokemon has
 #a base form and an evolved form or even 2 evolved forms. Certain Pokemon also have Mega Evolution forms based on X or Y
@@ -77,7 +77,7 @@ colnames(radar_test) <- c("HP", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Spee
 radar_test <- rbind( rep(255,6), rep(1,6), radar_test)
 radarchart(radar_test, axistype = 1,
            pcol = rgb(171/255, 57/255, 237/255,0.5), pfcol = rgb(171/255, 57/255, 237/255,0.5), plwd = 4,
-           cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,
+           cglcol="grey", cglty=1, axislabcol="black", caxislabels=seq(0,20,5), cglwd=0.8,
            vlcex = 0.8)
 
 
