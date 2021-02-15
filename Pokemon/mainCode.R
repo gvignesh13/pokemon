@@ -7,6 +7,7 @@ library(gridExtra)
 library(plyr)
 library(plotrix)
 library(compare)
+library(shiny)
 
 #opening dataset and printing summary of dataset
 pokemon_data <- read.csv("C:/Users/gvign/Desktop/pokemon-indexer/pokemon/pokemon_stats.csv", stringsAsFactors = TRUE)
@@ -72,7 +73,7 @@ pie3D(c(sum(!is.na(pokemon_data$Type1)) ,sum(pokemon_data$Type2!="None")), label
 
 
 #basic radar plot of pokemon
-radar_plot <- starters[f,6:11]
+radar_plot <- starters[1,6:11]
 colnames(radar_test) <- c("HP", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed")
 radar_test <- rbind( rep(255,6), rep(1,6), radar_test)
 radarchart(radar_test, axistype = 1,
