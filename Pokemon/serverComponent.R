@@ -1,4 +1,4 @@
-# source("C:/Users/gvign/Desktop/pokemon-indexer/pokemon/Pokemon/mainComponent.R")
+source("C:/Users/gvign/Desktop/pokemon-indexer/pokemon/Pokemon/mainComponent.R")
 library(shiny)
 
 # Define server logic required to draw a histogram ----
