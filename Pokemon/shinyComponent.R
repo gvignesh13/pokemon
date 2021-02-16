@@ -28,7 +28,8 @@ ui <- fluidPage(
         tabPanel("Tools",
                  tabsetPanel(type = "tabs",
                              tabPanel("Compare"))),
-        tabPanel("about")
+        tabPanel("About",
+                 p("Made by me :)))))))"))
         
       )
       
