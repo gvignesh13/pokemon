@@ -50,18 +50,18 @@ pie3D(c(sum(!is.na(pokemonData$Type1)) ,sum(pokemonData$Type2 != "None")), label
 
 #comparison of highest evolution vs mega evolution vs a legendary of the same type.
 
-
+starterPlot <- function(){
 #basic radar plot of pokemon
-radar_plot <- as.data.frame(starterPokemon[0:2, 6:11], ncol=  6)
+starterPlot <- as.data.frame(starterPokemon[0:2, 6:11], ncol=  6)
 
-colnames(radar_plot) <- c("HP", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed")
-rownames(radar_plot) <- c("Bulabasaur", "Charmander")
-radar_plot <- rbind( rep(80,6), rep(1,6), radar_plot)
+colnames(starterPlot) <- c("HP", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed")
+rownames(starterPlot) <- c("Bulabasaur", "Charmander")
+starterPlot <- rbind( rep(80,6), rep(1,6), starterPlot)
 
 colors_border = c( rgb(0.2,0.5,0.5,0.9), rgb(0.8,0.2,0.5,0.9) , rgb(0.7,0.5,0.1,0.9))
 colors_in = c( rgb(0.2,0.5,0.5,0.4), rgb(0.8,0.2,0.5,0.4) , rgb(0.7,0.5,0.1,0.4))
 
-radarchart(radar_plot, axistype = 1, seg = 5,
+radarchart(starterPlot, axistype = 0, seg = 5,
             
             #custom polygon
             pcol = colors_border , pfcol = colors_in , plwd = 2 , plty = 0,
@@ -71,6 +71,11 @@ radarchart(radar_plot, axistype = 1, seg = 5,
             
             #custom labels
             vlcex=0.8
+           
 )
 
-legend(x = 1.5, y = 1, legend = rownames(radar_plot[-c(1,2),]), bty = "n", pch = 20 , col = colors_in , text.col = "black", cex = 1.2, pt.cex = 3)
+#legend
+legend(x = 1.5, y = 1, legend = rownames(starterPlot[-c(1,2),]), bty = "n", pch = 20 , col = colors_in , text.col = "black", cex = 1.2, pt.cex = 3)
+}
+
+starterPlot()
