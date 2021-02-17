@@ -15,7 +15,23 @@ ui <- fluidPage(
     ),
     
     # Main panel for displaying outputs ----
-    mainPanel("main panel"
+    mainPanel(
+      
+      tabsetPanel(
+        type = "tabs",
+        tabPanel("Home",
+                 h1("Welcome!"),
+                 h5("This is my version of Pokedex. Made for anyone who wishes to start a new game of pokemon and 
+                    see what stats their pokemon are"),
+                 h5("Currently all this application can do is print a few fancy graphs :P"),
+                 h5("But in the future this app shall do most things you want.")),
+        tabPanel("Tools",
+                 tabsetPanel(type = "tabs",
+                             tabPanel("Compare"))),
+        tabPanel("About",
+                 p("Made by me :)))))))"))
+        
+      )
       
     )
   )
