@@ -34,19 +34,21 @@ all_mega <<- subset(pokemonData, grepl("Mega ", pokemonData$Name, fixed = TRUE))
 # gen6 <- subset(pokemon_data, pokemon_data$Generation=="6")
 # gen7 <- subset(pokemon_data, pokemon_data$Generation=="7")
 
+typePlot <- function(){
 
-#plotting basic comparisons of pokemon stats
-#stat comparison of starter pokemon
-ggplot(starterPokemon, aes(x = reorder(Name,Number), y=Total, fill = Type1)) + geom_bar(stat = "identity") + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  #plotting basic comparisons of pokemon stats
+  #stat comparison of starter pokemon
+  ggplot(starterPokemon, aes(x = reorder(Name,Number), y=Total, fill = Type1)) + geom_bar(stat = "identity") + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  
+  #distribution of pokemon by type
+  type1_poke <- ggplot(data = all_normal, aes(x = Type1, fill = Type1)) + geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1)) + ggtitle("Distribution Based on Type-1") + coord_flip()
+  type2_poke <- ggplot(data = all_normal, aes(x = Type2, fill = Type2)) + geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1)) + ggtitle("Distribution Based on Type-2") + coord_flip()
+  grid.arrange(type1_poke, type2_poke, ncol = 2)
+  
+  #single vs dual-type pokemon
+  pie3D(c(sum(!is.na(pokemonData$Type1)) ,sum(pokemonData$Type2 != "None")), labels = c("Type 1", "Type 1 and 2"), explode = 0.1, main = "Pokemon of Single and Dual Type nature")
 
-#distribution of pokemon by type
-type1_poke <- ggplot(data = all_normal, aes(x = Type1, fill = Type1)) + geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1)) + ggtitle("Distribution Based on Type-1") + coord_flip()
-type2_poke <- ggplot(data = all_normal, aes(x = Type2, fill = Type2)) + geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1)) + ggtitle("Distribution Based on Type-2") + coord_flip()
-grid.arrange(type1_poke, type2_poke, ncol = 2)
-
-#single vs dual-type pokemon
-pie3D(c(sum(!is.na(pokemonData$Type1)) ,sum(pokemonData$Type2 != "None")), labels = c("Type 1", "Type 1 and 2"), explode = 0.1, main = "Pokemon of Single and Dual Type nature")
-
+}
 
 #comparison of highest evolution vs mega evolution vs a legendary of the same type.
 
@@ -78,4 +80,5 @@ radarchart(starterPlot, axistype = 0, seg = 5,
 legend(x = 1.5, y = 1, legend = rownames(starterPlot[-c(1,2),]), bty = "n", pch = 20 , col = colors_in , text.col = "black", cex = 1.2, pt.cex = 3)
 }
 
+typePlot()
 starterPlot()
