@@ -1,13 +1,21 @@
 # source("C:/Users/gvign/Desktop/pokemon-indexer/pokemon/Pokemon/mainComponent.R")
 library(shiny)
 library(shinyjs)
+library(shinythemes)
 library(shinydashboard)
 
 ui <- fluidPage(
-  shinyjs::useShinyjs(),
   
-  # App title ----
-  titlePanel("Pokedex v1.0!"),
+  shinyjs::useShinyjs(),
+
+  fluidRow(
+            column(2,
+                   # App title ----
+                   h1("Pokedex v1.0!")),
+            
+            column(10, offset = 10,
+                  checkboxInput("theme", label = "Dark", value = FALSE)),
+           ),
 
   tabsetPanel(
     type = "tabs",
@@ -33,7 +41,8 @@ ui <- fluidPage(
                                                    choices = list("Starter Pokemon" = 1, "Normal Pokemon" = 2, "Legendary Pokemon" = 3, "Mega Evolution Pokemon" = 4), 
                                                    selected = 1),
                                       
-                                      hr(),
+                                      checkboxInput("PokemonComparison", label = "Compare Pokemon", value = FALSE),
+                                      
                                       selectInput("StarterPokemon", label = h3("Select Pokemon from list"),
                                                   c("1" = "1",
                                                     "2" = "2")
@@ -49,7 +58,8 @@ ui <- fluidPage(
                                       selectInput("MegaPokemon", label = h3("Select Pokemon from list"),
                                                   c("7" = "1",
                                                     "8" = "2")
-                                      )
+                                      ),
+                                      hr()
                                     ),
                                     mainPanel("helpful text")
                                   )),
@@ -70,7 +80,22 @@ server <- function(input, output) {
 
   })
   
-  output$value <- renderPrint({ input$PokemonTypeRadio })
+  observeEvent(input$PokemonComparison, {
+    
+    toggle(id = "StarterPokemon", condition = input$PokemonTypeRadio == "1" && input$PokemonComparison)
+    toggle(id = "NormalPokemon", condition = input$PokemonTypeRadio == "2")
+    toggle(id = "LegendaryPokemon", condition = input$PokemonTypeRadio == "3")
+    toggle(id = "MegaPokemon", condition = input$PokemonTypeRadio == "4")
+    
+  })
+  
+  observeEvent(input$theme, {
+    
+    if (toggle(id = "theme", condition = input$theme == "FALSE")){
+      
+    }
+    
+  })
 
 }
 
