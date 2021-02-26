@@ -1,7 +1,10 @@
 # source("C:/Users/gvign/Desktop/pokemon-indexer/pokemon/Pokemon/mainComponent.R")
 library(shiny)
+library(shinyjs)
+library(shinydashboard)
 
 ui <- fluidPage(
+  shinyjs::useShinyjs(),
   
   # App title ----
   titlePanel("Pokedex v1.0!"),
@@ -26,11 +29,27 @@ ui <- fluidPage(
                          tabPanel("Compare",
                                   sidebarLayout(
                                     sidebarPanel(
-                                      radioButtons("radio", label = h3("Select Pokemon from category"),
-                                                   choices = list("Starter Pokemons" = 1, "Normal Pokemons" = 2, "Legendary Pokemons" = 3, "Mega Evolution Pokemons" = 4), 
+                                      radioButtons("PokemonTypeRadio", label = h3("Select Pokemon from category"),
+                                                   choices = list("Starter Pokemon" = 1, "Normal Pokemon" = 2, "Legendary Pokemon" = 3, "Mega Evolution Pokemon" = 4), 
                                                    selected = 1),
                                       
                                       hr(),
+                                      selectInput("StarterPokemon", label = h3("Select Pokemon from list"),
+                                                  c("1" = "1",
+                                                    "2" = "2")
+                                                  ),
+                                      selectInput("NormalPokemon", label = h3("Select Pokemon from list"),
+                                                  c("3" = "1",
+                                                    "4" = "2")
+                                      ),
+                                      selectInput("LegendaryPokemon", label = h3("Select Pokemon from list"),
+                                                  c("5" = "1",
+                                                    "6" = "2")
+                                      ),
+                                      selectInput("MegaPokemon", label = h3("Select Pokemon from list"),
+                                                  c("7" = "1",
+                                                    "8" = "2")
+                                      )
                                     ),
                                     mainPanel("helpful text")
                                   )),
@@ -42,7 +61,16 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   
-  output$value <- renderPrint({ input$radio })
+  observeEvent(input$PokemonTypeRadio, {
+    
+    toggle(id = "StarterPokemon", condition = input$PokemonTypeRadio == "1")
+    toggle(id = "NormalPokemon", condition = input$PokemonTypeRadio == "2")
+    toggle(id = "LegendaryPokemon", condition = input$PokemonTypeRadio == "3")
+    toggle(id = "MegaPokemon", condition = input$PokemonTypeRadio == "4")
+
+  })
+  
+  output$value <- renderPrint({ input$PokemonTypeRadio })
 
 }
 
