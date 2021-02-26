@@ -6,6 +6,14 @@ library(shinydashboard)
 
 ui <- fluidPage(
   
+  light <- function(){
+    theme = shinytheme("cerulean")
+  },
+  
+  dark <- function(){
+    theme = shinytheme("darkly")
+  },
+  
   shinyjs::useShinyjs(),
 
   fluidRow(
@@ -91,8 +99,11 @@ server <- function(input, output) {
   
   observeEvent(input$theme, {
     
-    if (toggle(id = "theme", condition = input$theme == "FALSE")){
-      
+    if (input$theme == "FALSE"){
+      light()
+    }
+    else{
+      dark()
     }
     
   })
